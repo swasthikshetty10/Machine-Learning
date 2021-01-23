@@ -27,6 +27,10 @@
 
 # Activation Function
 '''
+1) sigmoid activation function(logistic function):
+    The input to the function is transformed into a value between 0.0 and 1.0.
+    
+
 '''
 
 
