@@ -1,15 +1,18 @@
 from typing import Sequence
 import nltk
 import json
+from nltk.translate.ribes_score import sentence_ribes
 import numpy as np
 from pyjokes import jokes_de
 import tensorflow
 from tensorflow import keras
 import pickle
 import random
+from nltk.tokenize import sent_tokenize
 from tensorflow.keras.preprocessing.text import Tokenizer
-sentence = """hello. buddy"""
-tokens = nltk.word_tokenize(sentence)
+sentence = """I want to sing a song but I don't know to sing can you please listen the song"""
+tokens = sent_tokenize(sentence)
+
 print(tokens)
 
 
@@ -34,4 +37,4 @@ def prediction(query):
     return intents
 
 
-print(prediction(sentence))
+print(prediction(tokens[0]))
