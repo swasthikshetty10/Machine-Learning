@@ -10,7 +10,7 @@ import pickle
 import random
 from nltk.tokenize import sent_tokenize
 from tensorflow.keras.preprocessing.text import Tokenizer
-sentence = """I want to sing a song but I don't know to sing can you please listen the song"""
+sentence = 'git hub dadaddsad asfds'
 tokens = sent_tokenize(sentence)
 
 print(tokens)
@@ -29,7 +29,8 @@ def prediction(query):
     result = model.predict(keras.preprocessing.sequence.pad_sequences(tokenizer.texts_to_sequences([query]),
                                                                       truncating='post', maxlen=max_len))
     # print(tensorflow.Tensor(result))
-    # print(np.max(result))
+    print(np.max(result))
+    # print(result)
     tag = lbl_encoder.inverse_transform([np.argmax(result)])
     for i in data['intents']:
         if i['tag'] == tag:
