@@ -20,7 +20,7 @@ from PIL import Image
 from PIL import ImageOps
 from PIL import ImageDraw
 from PIL import ImageColor
-from PIL import ImageFont
+
 
 
 def display_image(image):
@@ -33,6 +33,11 @@ def download_and_resize_image(url, new_width=256, new_height=256,
                               display=False):
     _, filename = tempfile.mkstemp(suffix=".jpg")
     response = urlopen(url)
+    
+    
+    
+    
+    
     image_data = response.read()
     image_data = BytesIO(image_data)
     pil_image = Image.open(image_data)
