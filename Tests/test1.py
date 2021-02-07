@@ -13,7 +13,6 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 sentence = 'git hub dadaddsad asfds'
 tokens = sent_tokenize(sentence)
 
-print(tokens)
 
 
 def prediction(query):
@@ -28,9 +27,9 @@ def prediction(query):
     max_len = 20
     result = model.predict(keras.preprocessing.sequence.pad_sequences(tokenizer.texts_to_sequences([query]),
                                                                       truncating='post', maxlen=max_len))
-    # print(tensorflow.Tensor(result))
+
     print(np.max(result))
-    # print(result)
+    
     tag = lbl_encoder.inverse_transform([np.argmax(result)])
     for i in data['intents']:
         if i['tag'] == tag:
