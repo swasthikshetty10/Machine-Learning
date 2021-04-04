@@ -22,7 +22,6 @@ from PIL import ImageDraw
 from PIL import ImageColor
 
 
-
 def display_image(image):
     fig = plt.figure(figsize=(20, 15))
     plt.grid(False)
@@ -33,11 +32,7 @@ def download_and_resize_image(url, new_width=256, new_height=256,
                               display=False):
     _, filename = tempfile.mkstemp(suffix=".jpg")
     response = urlopen(url)
-    
-    
-    
-    
-    
+
     image_data = response.read()
     image_data = BytesIO(image_data)
     pil_image = Image.open(image_data)
