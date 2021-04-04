@@ -15,10 +15,10 @@ nltk.download('wordnet')
 lemmatizer = WordNetLemmatizer()
 
 
-model = load_model('bot.h5')
-intents = json.loads(open('intents.json').read())
-words = pickle.load(open('words.pkl', 'rb'))
-classes = pickle.load(open('classes.pkl', 'rb'))
+model = load_model('Trained_Models/bot.h5')
+intents = json.loads(open('Trained_Models/intents.json').read())
+words = pickle.load(open('Trained_Models/words.pkl', 'rb'))
+classes = pickle.load(open('Trained_Models/classes.pkl', 'rb'))
 
 
 def clean_up_sentence(sentence):
@@ -143,7 +143,7 @@ def clear(): return os.system('cls')
 clear()
 
 # opening intents
-with open("intents.json") as file:
+with open("Trained_Models/intents.json") as file:
     data = json.load(file)
 
 
@@ -175,6 +175,4 @@ def ChatBot(query):
 
 while True:
     x = input('user : ')
-    if x.lower() in ['exit', 'quit', 'close']:
-        exit()
-    print('Bot : ' + ChatBot(takeCommand(x).lower())['response'])
+    print(ChatBot(takeCommand(x).lower()))
