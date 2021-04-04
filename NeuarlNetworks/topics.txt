@@ -1,1 +1,0 @@
-#Weight is the parameter within a neural network that transforms input data within the network's hidden layers   
