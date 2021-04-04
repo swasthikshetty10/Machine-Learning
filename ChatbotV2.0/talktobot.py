@@ -1,3 +1,4 @@
+from copy import Error
 from nltk.stem import WordNetLemmatizer
 import nltk
 import os
@@ -9,6 +10,7 @@ from tensorflow import keras
 import pickle
 import random
 from tensorflow.keras.models import load_model
+from tensorflow.python.platform.tf_logging import error
 
 nltk.download('punkt')
 nltk.download('wordnet')
@@ -92,20 +94,17 @@ def prediction(msg):
         result = {"response": "sorry i could not understand what you are saying",
                   "tag": "couldnotunderstand"
                   }
-
     return result
 # text to response
 
 
-def to_json(response, tag=None, Notes=None, urls=None,):
-    stuf_for_frontend = {
+def to_json(response, tag=None):
+    response = {
         "response": response,
         "tag": tag,
-        "notes": Notes,
-        "urls": urls,
     }
 
-    return stuf_for_frontend
+    return response
 
 
 # taking command from response
@@ -113,34 +112,6 @@ def takeCommand(cmd):
 
     return cmd
 
-
-# # predicting solution from machine learning model
-# def prediction(query):
-#     intents = None
-#     with open("Backend/intents.json") as file:
-#         data = json.load(file)
-#     model = keras.models.load_model('chat_model')
-#     with open('Backend/tokenizer.pickle', 'rb') as handle:
-#         tokenizer = pickle.load(handle)
-#     with open('Backend/label_encoder.pickle', 'rb') as enc:
-#         lbl_encoder = pickle.load(enc)
-#     max_len = 20
-#     result = model.predict(keras.preprocessing.sequence.pad_sequences(tokenizer.texts_to_sequences([query]),
-#                                                                       truncating='post', maxlen=max_len))
-#     # print(tensorflow.Tensor(result))
-#     # print(np.max(result))
-#     tag = lbl_encoder.inverse_transform([np.argmax(result)])
-#     for i in data['intents']:
-#         if i['tag'] == tag:
-#             intents = to_json(response=np.random.choice(
-#                 i['responses']), tag=str(tag))
-#     return intents
-
-
-def clear(): return os.system('cls')
-
-
-clear()
 
 # opening intents
 with open("intents.json") as file:
@@ -153,26 +124,20 @@ def converttostring(list):
 
 
 ##### response #####
-
 def ChatBot(query):
 
     try:
-
         Bot_Response = prediction(query)
         tag = Bot_Response.get('tag')
-        # open stack overflow
-        if tag == 'stackoverflow':
-
-            Bot_Response = to_json(
-                response='oh but i cant fix your error right now')
 
     except Exception as e:
-        Bot_Response = to_json('sorry something went wrong')
+        Bot_Response = {'response': e, 'tag': "error"}
         # print(e)
 
     return Bot_Response
 
 
+os.system('cls')
 while True:
     x = input('user : ')
     if x.lower() in ['exit', 'quit', 'close']:
